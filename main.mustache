@@ -46,12 +46,12 @@ We'll send you back the **license** file and a **key**.
 You can then activate the instance by calling **Activate** method:  
 
 ```cpp
-  const char* PathToLicenseFile = "/home/user/Licenses/Impleo/MisbCoreNativeLicense.lic";
-  const char* LicenseKey = "AF596BF0-BBAB142B-1B905B24-8DA51BED";
-  typedef bool (*activateFunc)(char*, char*);
+const char* PathToLicenseFile = "/home/user/Licenses/Impleo/MisbCoreNativeLicense.lic";
+const char* LicenseKey = "AF596BF0-BBAB142B-1B905B24-8DA51BED";
+typedef bool (*activateFunc)(char*, char*);
 
-	activateFunc Activate = (activateFunc)funcAddr(handle, (char*)"Activate");
-	bool fValid = Activate((char*)PathToLicenseFile, (char*)LicenseKey);
+activateFunc Activate = (activateFunc)funcAddr(handle, (char*)"Activate");
+bool fValid = Activate((char*)PathToLicenseFile, (char*)LicenseKey);
 ```
 
 > For large quantities, please contact us for an **unlocked license**.
