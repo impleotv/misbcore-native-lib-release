@@ -8,10 +8,13 @@
 # MisbCoreNative Lib
 
 **MisbCoreNative Lib** is a KLV / MISB metadata encoder / decoder compiled as a self-contained native library (Native AOT Form Factor).  
-It allows an easy integration of [MisbCore library](https://www.impleotv.com/content/misbcore/help/index.html) into C/C++ cross-platform applications.
+It allows an easy integration of [MisbCore library](https://www.impleotv.com/content/misbcore/help/index.html) into C/C++ cross-platform applications.  
+
+More info on [MisbCoreNative Lib](https://www.impleotv.com/content/misbcore/help/user-guide/native-lib/).  
+
 
 ## System Requirements
-OS: Windows / Linux. 64 bit only.
+OS: Windows / Linux. x64 bit only.
 
 ## Installation
 
@@ -23,10 +26,10 @@ OS: Windows / Linux. 64 bit only.
 
 |          | Version             | Download link                                                           | 
 |:---------|:-------------------:|:------------------------------------------------------------------------|
-| **MisbCoreNativeLib.dll** |  master | [MisbCoreNativeLib.dll.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.dll.zip) | 
-| **MisbCoreNativeLib.so**  |  master | [MisbCoreNativeLib.so.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.so.zip)   | 
+| **x64 MisbCoreNativeLib.dll** |  master | [MisbCoreNativeLib.dll.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.dll.zip) | 
+| **x64 MisbCoreNativeLib.so**  |  master | [MisbCoreNativeLib.so.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.so.zip)   | 
 
-*Released on Mon, 6 Dec, 09:47 GMT+2*
+*Released on Mon, 6 Dec, 11:14 GMT+2*
 
 
 ## License
@@ -46,6 +49,14 @@ We'll send you back the **license** file and a **key**.
 You can then activate the instance by calling **Activate** method:  
 
 ```cpp
+#ifdef _WIN32
+    #define funcAddr GetProcAddress
+    HINSTANCE handle = LoadLibraryA((char*)PathToLibrary);
+#else
+    #define funcAddr dlsym
+    void* handle = dlopen((char*)PathToLibrary, RTLD_LAZY);
+#endif
+
 const char* PathToLicenseFile = "/home/user/Licenses/Impleo/MisbCoreNativeLicense.lic";
 const char* LicenseKey = "AF596BF0-BBAB142B-1B905B24-8DA51BED";
 typedef bool (*activateFunc)(char*, char*);
