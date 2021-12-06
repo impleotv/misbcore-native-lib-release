@@ -26,7 +26,7 @@ OS: Windows / Linux. 64 bit only.
 | **MisbCoreNativeLib.dll** |  master | [MisbCoreNativeLib.dll.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.dll.zip) | 
 | **MisbCoreNativeLib.so**  |  master | [MisbCoreNativeLib.so.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.so.zip)   | 
 
-*Released on Mon, 6 Dec, 09:45 GMT+2*
+*Released on Mon, 6 Dec, 09:47 GMT+2*
 
 
 ## License
@@ -46,12 +46,12 @@ We'll send you back the **license** file and a **key**.
 You can then activate the instance by calling **Activate** method:  
 
 ```cpp
-  const char* PathToLicenseFile = "/home/user/Licenses/Impleo/MisbCoreNativeLicense.lic";
-  const char* LicenseKey = "AF596BF0-BBAB142B-1B905B24-8DA51BED";
-  typedef bool (*activateFunc)(char*, char*);
+const char* PathToLicenseFile = "/home/user/Licenses/Impleo/MisbCoreNativeLicense.lic";
+const char* LicenseKey = "AF596BF0-BBAB142B-1B905B24-8DA51BED";
+typedef bool (*activateFunc)(char*, char*);
 
-	activateFunc Activate = (activateFunc)funcAddr(handle, (char*)"Activate");
-	bool fValid = Activate((char*)PathToLicenseFile, (char*)LicenseKey);
+activateFunc Activate = (activateFunc)funcAddr(handle, (char*)"Activate");
+bool fValid = Activate((char*)PathToLicenseFile, (char*)LicenseKey);
 ```
 
 > For large quantities, please contact us for an **unlocked license**.
