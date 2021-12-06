@@ -12,7 +12,6 @@ It allows an easy integration of [MisbCore library](https://www.impleotv.com/con
 
 More info on [MisbCoreNative Lib](https://www.impleotv.com/content/misbcore/help/user-guide/native-lib/).  
 
-
 ## System Requirements
 OS: Windows / Linux. x64 bit only.
 
@@ -31,7 +30,6 @@ OS: Windows / Linux. x64 bit only.
 
 *Released on {{date}}*
 
-
 ## License
 
 **MisbCoreNative Lib** is a node locked software. In order to get the license, please install it and fill an [online form](https://docs.google.com/forms/d/e/1FAIpQLSd_XW6bDsFce1G1cpds4gMQNlwNax0CvkWzcMbscxZ5rLaIbA/viewform), providing the ***Node Info*** string (IMPORTANT!!!) for the target machine.  
@@ -44,7 +42,6 @@ getNodeInfoFunc GetNodeInfo = (getNodeInfoFunc)funcAddr(handle, (char*)"GetNodeI
 char* nodeInfo = GetNodeInfo();
 printf("The NodeInfo: %s \n", nodeInfo);
 ```
-
 We'll send you back the **license** file and a **key**.  
 You can then activate the instance by calling **Activate** method:  
 
@@ -64,5 +61,4 @@ typedef bool (*activateFunc)(char*, char*);
 activateFunc Activate = (activateFunc)funcAddr(handle, (char*)"Activate");
 bool fValid = Activate((char*)PathToLicenseFile, (char*)LicenseKey);
 ```
-
 > For large quantities, please contact us for an **unlocked license**.
