@@ -3,3 +3,4 @@ npm-debug.log*
 *.exe
 *.zip
 .ftp-deploy-sync-state.json
+README.md
