@@ -25,10 +25,10 @@ OS: Windows / Linux. x64 bit only.
 
 |          | Version             | Download link                                                           | 
 |:---------|:-------------------:|:------------------------------------------------------------------------|
-| **x64 MisbCoreNativeLib.dll** |  master | [MisbCoreNativeLib.dll.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.dll.zip) | 
-| **x64 MisbCoreNativeLib.so**  |  master | [MisbCoreNativeLib.so.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.so.zip)   | 
+| **x64 MisbCoreNativeLib.dll** |  v1.4.1 | [MisbCoreNativeLib.dll.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.dll.zip) | 
+| **x64 MisbCoreNativeLib.so**  |  v1.4.1 | [MisbCoreNativeLib.so.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.so.zip)   | 
 
-*Released on Mon, 6 Dec, 11:18 GMT+2*
+*Released on Thu, 23 Dec, 19:47 GMT+2*
 
 ## License
 
