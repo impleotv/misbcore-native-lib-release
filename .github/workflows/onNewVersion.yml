@@ -26,6 +26,7 @@ jobs:
 
       - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, Artifact MisbCoreNativeLib.so) 
         run: |
+           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/*
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/*
 
       - name: List files in the repository
