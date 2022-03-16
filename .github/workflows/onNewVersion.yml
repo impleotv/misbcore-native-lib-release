@@ -24,6 +24,13 @@ jobs:
           file: CHANGELOG.md
           target: CHANGELOG.md
 
+      - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, Artifact MisbCoreNativeLib.so) 
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-misbcore-native.yml
+          repo: impleotv/stcore
+
       - name: List files in the repository
         run: |
           tree ${{ github.workspace }}
