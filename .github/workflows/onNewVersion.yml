@@ -24,7 +24,7 @@ jobs:
       #     file: CHANGELOG.md
       #     target: CHANGELOG.md
 
-      - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, Artifact MisbCoreNativeLib.so) 
+      - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, MisbCoreNativeLib.so, stored on ftp) 
         run: |
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/*
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/*
@@ -32,6 +32,16 @@ jobs:
       - name: List files in the repository
         run: |
           tree ${{ github.workspace }}
+
+       - name: Upload binaries to release
+         uses: svenstaro/upload-release-action@v2
+         with:
+           repo_token: ${{ secrets.GITHUB_TOKEN }}
+           file: MisbCoreNativeLib.dll
+           asset_name: MisbCoreNative
+           tag: ${{ github.ref }}
+           overwrite: true
+           body: "MisbCoreNative release"
 
       # - name: Setup NodeJs 14.x
       #   uses: actions/setup-node@v1
