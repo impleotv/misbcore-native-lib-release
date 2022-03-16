@@ -28,7 +28,7 @@ OS: Windows / Linux. x64 bit only.
 | **x64 MisbCoreNativeLib.dll** |  v2.0.0 | [MisbCoreNativeLib.dll.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.dll) | 
 | **x64 MisbCoreNativeLib.so**  |  v2.0.0 | [MisbCoreNativeLib.so.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.so)   | 
 
-*Released on Wed, 16 Mar, 14:12 GMT+2*
+*Released on Wed, 16 Mar, 19:14 GMT+2*
 
 ## License
 
