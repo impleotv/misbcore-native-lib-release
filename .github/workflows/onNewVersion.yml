@@ -29,7 +29,8 @@ jobs:
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: build-misbcore-native.yml
-          repo: 'https://github.com/impleotv/stcore'
+          repo: 'impleotv/stcore'
+          name: 'Windows-x64'
 
       - name: List files in the repository
         run: |
