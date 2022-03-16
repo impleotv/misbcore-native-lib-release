@@ -25,12 +25,8 @@ jobs:
       #     target: CHANGELOG.md
 
       - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, Artifact MisbCoreNativeLib.so) 
-        uses: aochmann/actions-download-artifact@1.0.0
-        with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          repo: 'impleotv/stcore'
-          name: 'Windows-x64'
-          latest: true
+        run: |
+           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/*
 
       - name: List files in the repository
         run: |
