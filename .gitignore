@@ -3,4 +3,6 @@ npm-debug.log*
 *.exe
 *.zip
 *.so
+*.dll
 .ftp-deploy-sync-state.json
+
