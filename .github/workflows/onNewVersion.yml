@@ -30,7 +30,7 @@ jobs:
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/*
 
       - name: Zip files for windows-x64
-      - uses: papeloto/action-zip@v1
+        uses: papeloto/action-zip@v1
         with:
           files: MisbCoreNativeLib.dll
           dest:  MisbCoreNativeLib-windows-64.zip
