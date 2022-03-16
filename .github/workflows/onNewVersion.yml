@@ -43,26 +43,26 @@ jobs:
           overwrite: true
           body: "MisbCoreNative release"
 
-      # - name: Setup NodeJs 14.x
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '14.x'
-      # - name: Cache dependencies and build outputs to improve workflow execution time.
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: node_modules
-      #     key: ${{ runner.os }}-js-${{ hashFiles('package-lock.json') }}
-      # - name: Install dependencies
-      #   run: npm install
-      # - name: Set env
-      #   run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      # - name: Test
-      #   run: |
-      #     echo $RELEASE_VERSION
-      #     echo ${{ env.RELEASE_VERSION }}       
-      # - name: Generate README file
-      #   run: node index.js ${{env.RELEASE_VERSION }}
-      # - name: Commit and Push new README.md to the repository
-      #   uses: mikeal/publish-to-github-action@master
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup NodeJs 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Cache dependencies and build outputs to improve workflow execution time.
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-js-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        run: npm install
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Test
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}       
+      - name: Generate README file
+        run: node index.js ${{env.RELEASE_VERSION }}
+      - name: Commit and Push new README.md to the repository
+        uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
