@@ -33,7 +33,7 @@ jobs:
         uses: papeloto/action-zip@v1
         with:
           files: MisbCoreNativeLib.dll
-          dest:  MisbCoreNativeLib-windows-64.zip
+          dest:  /dist/MisbCoreNativeLib-windows-64.zip
 
       - name: List files in the repository
         run: |
@@ -43,7 +43,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: *.zip
+          file: /dist/*.zip
           asset_name: MisbCoreNative
           tag: ${{ github.ref }}
           overwrite: true
