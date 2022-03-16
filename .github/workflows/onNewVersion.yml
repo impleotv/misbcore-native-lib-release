@@ -33,15 +33,15 @@ jobs:
         run: |
           tree ${{ github.workspace }}
 
-       - name: Upload binaries to release
-         uses: svenstaro/upload-release-action@v2
-         with:
-           repo_token: ${{ secrets.GITHUB_TOKEN }}
-           file: MisbCoreNativeLib.dll
-           asset_name: MisbCoreNative
-           tag: ${{ github.ref }}
-           overwrite: true
-           body: "MisbCoreNative release"
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: MisbCoreNativeLib.dll
+          asset_name: MisbCoreNative
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "MisbCoreNative release"
 
       # - name: Setup NodeJs 14.x
       #   uses: actions/setup-node@v1
