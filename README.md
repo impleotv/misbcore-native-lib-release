@@ -17,18 +17,18 @@ OS: Windows / Linux. x64 bit only.
 
 ## Installation
 
-**MisbCoreNative Lib**  can be downloaded as a **zip** file for particular operation system:  
- - MisbCoreNativeLib.dll.zip  - Windows
- - MisbCoreNativeLib.so.zip   - Linux
+**MisbCoreNative Lib** can be downloaded as a **zip** file for particular operation system:  
+ - MisbCoreNativeLib-windows-x64.zip  - Windows
+ - MisbCoreNativeLib-linux-x64.zip   - Linux
 
 ## Download links
 
 |          | Version             | Download link                                                           | 
 |:---------|:-------------------:|:------------------------------------------------------------------------|
-| **x64 MisbCoreNativeLib.dll** |  v2.0.0 | [MisbCoreNativeLib.dll.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.dll) | 
-| **x64 MisbCoreNativeLib.so**  |  v2.0.0 | [MisbCoreNativeLib.so.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib.so)   | 
+| **MisbCoreNativeLib windows-x64** |  v2.0.0 | [MisbCoreNativeLib-windows-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-windows-x64.zip) | 
+| **MisbCoreNativeLib linuz-x64**   |  v2.0.0 | [MisbCoreNativeLib-linux-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-x64.zip)   | 
 
-*Released on Wed, 16 Mar, 19:14 GMT+2*
+*Released on Wed, 16 Mar, 19:29 GMT+2*
 
 ## License
 
