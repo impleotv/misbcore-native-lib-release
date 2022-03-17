@@ -28,7 +28,7 @@ jobs:
         run: |
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/*
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/*
-           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Doc/* 
+           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
 
       - name: Zip file for windows-x64
         uses: papeloto/action-zip@v1
@@ -76,7 +76,7 @@ jobs:
           echo ${{ env.RELEASE_VERSION }}       
       - name: Generate README file
         run: node index.js ${{env.RELEASE_VERSION }}
-      - name: Commit and Push new README.md to the repository
+      - name: Commit and Push new README.md and CHANGELOG to the repository
         uses: mikeal/publish-to-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
