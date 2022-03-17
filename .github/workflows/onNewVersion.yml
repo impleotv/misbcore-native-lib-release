@@ -16,18 +16,19 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1  
+        uses: actions/checkout@v2 
 
-      - name: Download CHANGELOG.md from release 
-        uses: dsaltares/fetch-gh-release-asset@master
-        with:    
-          file: CHANGELOG.md
-          target: CHANGELOG.md
+      # - name: Download CHANGELOG.md from release 
+      #   uses: dsaltares/fetch-gh-release-asset@master
+      #   with:    
+      #     file: CHANGELOG.md
+      #     target: CHANGELOG.md
 
       - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, MisbCoreNativeLib.so, stored on ftp) 
         run: |
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/*
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/*
+           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Doc/* 
 
       - name: Zip file for windows-x64
         uses: papeloto/action-zip@v1
