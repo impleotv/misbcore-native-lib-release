@@ -25,21 +25,28 @@ jobs:
 
       - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, MisbCoreNativeLib.so, stored on ftp) 
         run: |
-           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/*
-           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/*
+           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/* -P /Windows-x64
+           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/* -P /Linux-x64
+           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-arm64/* -P /Linux-arm64
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
 
       - name: Zip file for windows-x64
         uses: papeloto/action-zip@v1
         with:
-          files: MisbCoreNativeLib.dll
+          files: /Windows-x64/MisbCoreNativeLib.dll
           dest:  /dist/MisbCoreNativeLib-windows-x64.zip
 
       - name: Zip file for linux-x64
         uses: papeloto/action-zip@v1
         with:
-          files: MisbCoreNativeLib.so
+          files: /Linux-x64/MisbCoreNativeLib.so
           dest:  /dist/MisbCoreNativeLib-linux-x64.zip
+      
+      - name: Zip file for linux-arm64
+        uses: papeloto/action-zip@v1
+        with:
+          files: /Linux-arm64/MisbCoreNativeLib.so
+          dest:  /dist/MisbCoreNativeLib-linux-arm64.zip
 
       - name: List files in the repository
         run: |
