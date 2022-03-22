@@ -26,7 +26,7 @@ OS: Windows / Linux. x64 bit only.
 |          | Version             | Download link                                                           | 
 |:---------|:-------------------:|:------------------------------------------------------------------------|
 | **MisbCoreNativeLib windows-x64** |  master | [MisbCoreNativeLib-windows-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-windows-x64.zip) | 
-| **MisbCoreNativeLib linuz-x64**   |  master | [MisbCoreNativeLib-linux-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-x64.zip)   | 
+| **MisbCoreNativeLib linux-x64**   |  master | [MisbCoreNativeLib-linux-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-x64.zip)   | 
 
 *Released on Thu, 17 Mar, 09:01 GMT+2*
 
