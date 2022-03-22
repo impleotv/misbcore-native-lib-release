@@ -19,7 +19,8 @@ OS: Windows / Linux. x64 bit only.
 
 **MisbCoreNative Lib** can be downloaded as a **zip** file for particular operation system:  
  - MisbCoreNativeLib-windows-x64.zip  - Windows
- - MisbCoreNativeLib-linux-x64.zip   - Linux
+ - MisbCoreNativeLib-linux-x64.zip    - Linux x64
+ - MisbCoreNativeLib-linux-arm64.zip  - Linux arm64
 
 ## Download links
 
