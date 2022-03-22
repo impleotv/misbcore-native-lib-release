@@ -22,7 +22,8 @@ jobs:
         with:    
           file: CHANGELOG.md
           target: CHANGELOG.md
-
+          
+      - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, MisbCoreNativeLib.so, stored on ftp) 
         run: |
            mkdir Windows-x64
            mkdir Linux-x64
