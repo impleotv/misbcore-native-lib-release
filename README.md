@@ -33,7 +33,7 @@ OS: Windows / Linux. x64 bit only.
 ## License
 
 **MisbCoreNative Lib** is a node locked software. In order to get the license, please install it and fill an [online form](https://docs.google.com/forms/d/e/1FAIpQLSd_XW6bDsFce1G1cpds4gMQNlwNax0CvkWzcMbscxZ5rLaIbA/viewform), providing the ***Node Info*** string (IMPORTANT!!!) for the target machine.  
-***Node Info*** string can be obrtained by calling **GetNodeInfo** method, as shown below.
+***Node Info*** string can be obtained by calling **GetNodeInfo** method, as shown below.
 
 ```cpp
 typedef char* (*getNodeInfoFunc)();
