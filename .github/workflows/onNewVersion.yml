@@ -33,11 +33,11 @@ jobs:
            ls -la
            sudo mkdir Linux-x64 
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/* 
-           sudo mv MisbCoreNativeLib.so /Linux-x64
+           sudo mv ./MisbCoreNativeLib.so ./Linux-x64
            ls -la
            sudo mkdir Linux-arm64
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-arm64/* 
-           sudo mv MisbCoreNativeLib.so /Linux-arm64
+           sudo mv ./MisbCoreNativeLib.so ./Linux-arm64
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
            tree ${{ github.workspace }}
 
