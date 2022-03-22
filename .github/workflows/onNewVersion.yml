@@ -1,6 +1,5 @@
 name: OnPushNewVersion
 
-
 on:
   push:
     tags:
@@ -17,9 +16,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2 
-        with:
-          ref: ${{ github.head_ref }}
-
+  
       - name: Download CHANGELOG.md from release 
         uses: dsaltares/fetch-gh-release-asset@master
         with:    
