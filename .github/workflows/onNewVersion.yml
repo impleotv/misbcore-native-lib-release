@@ -27,13 +27,13 @@ jobs:
         run: |
            mkdir Windows-x64
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/*
-           mv /Windows-x64/MisbCoreNativeLib.dll
+           mv MisbCoreNativeLib.dll /Windows-x64
            mkdir Linux-x64 
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/* 
-           mv MisbCoreNativeLib.so /Linux-x64/MisbCoreNativeLib.so
+           mv MisbCoreNativeLib.so /Linux-x64
            mkdir Linux-arm64
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-arm64/* -P /Linux-arm64
-           mv MisbCoreNativeLib.so /Linux-arm64/MisbCoreNativeLib.so
+           mv MisbCoreNativeLib.so /Linux-arm64
            wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
 
       - name: Zip file for windows-x64
