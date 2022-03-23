@@ -83,9 +83,10 @@ jobs:
           echo $RELEASE_VERSION
           echo ${{ env.RELEASE_VERSION }}       
       - name: Generate README file
-        run: node index.js ${{ env.RELEASE_VERSION }}
+        run: node index.js 
+        
       - name: Commit and Push new README.md and CHANGELOG to the repository     
-        uses: mikeal/publish-to-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: EndBug/add-and-commit@v9
+          with:
+          message: ${{ env.RELEASE_VERSION }}
 
