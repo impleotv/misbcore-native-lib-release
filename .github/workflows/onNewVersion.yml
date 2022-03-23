@@ -85,7 +85,7 @@ jobs:
       - name: Generate README file
         run: node index.js ${{ env.RELEASE_VERSION }}
       - name: Commit and Push new README.md and CHANGELOG to the repository     
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "RELEASE ${{ env.RELEASE_VERSION }}"
+        uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
