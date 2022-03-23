@@ -15,7 +15,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           path: master 
           
@@ -94,5 +94,5 @@ jobs:
           add: '.'
           push: true
           message: "Ver. ${{ env.RELEASE_VERSION }}"
-          
+
 
