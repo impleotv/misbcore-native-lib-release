@@ -17,7 +17,7 @@ OS: Windows x64 / Linux (x64, arm64).
 
 ## Installation
 
-**MisbCoreNative Lib** can be downloaded as a **zip** file for particular operation system:  
+**MisbCoreNative Lib** can be downloaded as a **zip** file for the following operation systems:  
  - MisbCoreNativeLib-windows-x64.zip  - Windows
  - MisbCoreNativeLib-linux-x64.zip    - Linux x64
  - MisbCoreNativeLib-linux-arm64.zip  - Linux arm64
@@ -31,7 +31,7 @@ OS: Windows x64 / Linux (x64, arm64).
 | **MisbCoreNativeLib linux-arm64**   |  v2.0.0 | [MisbCoreNativeLib-linux-arm64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-arm64.zip)   | 
 | **MisbCoreNativeLib demo app**      |  v2.0.0 | [MisbCoreNativeLib-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-demo.zip)   | 
 
-*Released on Wed, 23 Mar, 11:59 GMT+2*
+*Released on Wed, 23 Mar, 12:07 GMT+2*
 
 ## License
 
