@@ -89,5 +89,7 @@ jobs:
       - name: Commit and Push new README.md and CHANGELOG to the repository     
         uses: EndBug/add-and-commit@v9
         with:
-          message: ${{ env.RELEASE_VERSION }}
+          add: '.'
+          push: true
+          message: "Ver. ${{ env.RELEASE_VERSION }}"
 
