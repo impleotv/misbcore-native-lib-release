@@ -95,5 +95,6 @@ jobs:
           add: '.'
           push: true
           message: "Ver. ${{ env.RELEASE_VERSION }}"
+          
 
 
