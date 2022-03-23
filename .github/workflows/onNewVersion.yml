@@ -16,12 +16,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2 
-  
-      - name: Download CHANGELOG.md from release 
-        uses: dsaltares/fetch-gh-release-asset@master
-        with:    
-          file: CHANGELOG.md
-          target: CHANGELOG.md
           
       - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, MisbCoreNativeLib.so, stored on ftp) 
         run: |
@@ -56,6 +50,13 @@ jobs:
         with:
           files: /Linux-arm64/MisbCoreNativeLib.so
           dest:  /dist/MisbCoreNativeLib-linux-arm64.zip
+          
+          
+      - name: Download CHANGELOG.md from release 
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:    
+          file: CHANGELOG.md
+          target: CHANGELOG.md
 
       - name: List files in the repository
         run: |
