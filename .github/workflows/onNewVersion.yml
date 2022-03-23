@@ -87,7 +87,7 @@ jobs:
           echo ${{ env.RELEASE_VERSION }} 
           tree ${{ github.workspace }}      
       - name: Generate README file
-        run: node index.js 
+        run: node index.js ${{env.RELEASE_VERSION }}
         
       - name: Commit and Push new README.md and CHANGELOG to the repository     
         uses: EndBug/add-and-commit@v9
