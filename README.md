@@ -31,7 +31,7 @@ OS: Windows x64 / Linux (x64, arm64).
 | **MisbCoreNativeLib linux-arm64**   |   | [MisbCoreNativeLib-linux-arm64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-arm64.zip)   | 
 | **MisbCoreNativeLib demo app**      |   | [MisbCoreNativeLib-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-demo.zip)   | 
 
-*Released on Wed, 23 Mar, 11:28 GMT+2*
+*Released on Wed, 23 Mar, 11:54 GMT+2*
 
 ## License
 
