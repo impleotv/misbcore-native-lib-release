@@ -1,9 +1,6 @@
 Change Log
 ==========
 
-v2.0.1 (19/05/22)
-- Fix Unsigned/signed range exception
-
 v2.0.0
 
 - Add multi-instance support
