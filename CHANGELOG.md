@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+v2.0.1
+
+- Add ConvertTargetCenterPoint
+- Fix Tag 110
+- Fix Unsigned/signed range exception
+
 v2.0.0
 
 - Add multi-instance support
