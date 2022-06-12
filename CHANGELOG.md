@@ -14,7 +14,7 @@ v2.0.0
 - Add VObject to VMTI
 
 Breaking changes:
-- ref, readonly ref, in, out not allowed as parameters or return on methods with unmanaged callers only. Introduced in .NET SDK 6.0.200, Visual Studio 2022 version 17.1. So, the interface of Encode method has been changed.
+- ref, readonly ref, in, out not allowed as parameters or return on methods with Unmanaged callers only. Introduced in .NET SDK 6.0.200, Visual Studio 2022 version 17.1. So, the interface of Encode method has been changed.
 
 v1.4.1
 - First release
