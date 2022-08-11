@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+v2.0.3
+- Add tags 115, 116, 121, 122,128, 138, 139
+
 v2.0.2
 - Add ToDetailed method
 
