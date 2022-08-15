@@ -1,5 +1,7 @@
 Change Log
 ==========
+v2.0.3
+- Fix VMTI target id
 
 v2.0.3
 - Add tags 115, 116, 121, 122,128, 138, 139
