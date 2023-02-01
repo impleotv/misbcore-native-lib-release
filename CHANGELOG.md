@@ -1,6 +1,10 @@
 Change Log
 ==========
-v2.0.3
+
+v2.0.5
+- Add some new methods to the library
+
+v2.0.4
 - Fix VMTI target id
 
 v2.0.3
