@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+v2.1.0
+- Add VChip support
+
 v2.0.5
 - Add some new methods to the library
 
