@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+v2.1.1
+- Fix VMTI TargetID BER-OID 
+
 v2.1.0
 - Add VChip support
 
