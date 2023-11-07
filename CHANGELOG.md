@@ -1,7 +1,5 @@
 Change Log
 ==========
-v2.2.0 (07/11/23)
-- Bump version to sync with misbCore
 
 v2.1.1 (16/07/23)
 - Fix BER-OID Encoding/Decoding for VMTI Target ID
