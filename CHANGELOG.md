@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+### Ver. 2.3.0 (21/03/24)
+- Remove length from VMTI Location (tag 17)
+- Remove length from VMTI Velocity and Acceleration DLP 
+
+### Ver. 2.2.1 (10/03/23)
+- Generic Flag Data (tag47) Versions 13 through 16 of ST 0601 unintentionally inverted the column definitions; 
+
+### Ver. 2.2.0 (07/11/23)
+- Bump the version to 2.2.0 to sync with the native library
+
 v2.1.1 (16/07/23)
 - Fix BER-OID Encoding/Decoding for VMTI Target ID
 
