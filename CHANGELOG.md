@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+
+### Ver. 2.4.0 (16/07/24)
+
+- Add OrderByTags metod
+- AOT compile .NET 8.0
+
+### Ver. 2.3.1 (17/06/24)
+
+- Activate internal
+
 ### Ver. 2.3.0 (21/03/24)
 - Remove length from VMTI Location (tag 17)
 - Remove length from VMTI Velocity and Acceleration DLP 
