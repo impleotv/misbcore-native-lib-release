@@ -27,12 +27,12 @@ OS: Windows x64 / Linux (x64, arm64).
 
 |          | Version             | Download link                                                           | 
 |:---------|:-------------------:|:------------------------------------------------------------------------|
-| **MisbCoreNativeLib windows-x64**   |  v2.4.0 | [MisbCoreNativeLib-windows-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-windows-x64.zip) | 
-| **MisbCoreNativeLib linux-x64**     |  v2.4.0 | [MisbCoreNativeLib-linux-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-x64.zip)   | 
-| **MisbCoreNativeLib linux-arm64**   |  v2.4.0 | [MisbCoreNativeLib-linux-arm64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-arm64.zip)   | 
-| **MisbCoreNativeLib demo app**      |  v2.4.0 | [MisbCoreNativeLib-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-demo.zip)   | 
+| **MisbCoreNativeLib windows-x64**   |  v2.4.1 | [MisbCoreNativeLib-windows-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-windows-x64.zip) | 
+| **MisbCoreNativeLib linux-x64**     |  v2.4.1 | [MisbCoreNativeLib-linux-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-x64.zip)   | 
+| **MisbCoreNativeLib linux-arm64**   |  v2.4.1 | [MisbCoreNativeLib-linux-arm64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-linux-arm64.zip)   | 
+| **MisbCoreNativeLib demo app**      |  v2.4.1 | [MisbCoreNativeLib-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-demo.zip)   | 
 
-*Released on Mon, 8 Jul, 09:56 GMT+3*
+*Released on Tue, 9 Jul, 11:16 GMT+3*
 
 ## License
 

@@ -2,7 +2,11 @@ Change Log
 ==========
 
 
-### Ver. 2.4.0 (16/07/24)
+### Ver. 2.4.1 (09/07/24)
+
+- Fix set activation and InstanceCleanUp
+
+### Ver. 2.4.0 (08/07/24)
 
 - Add OrderByTags metod
 - AOT compile .NET 8.0
