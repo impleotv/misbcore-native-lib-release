@@ -1,0 +1,37 @@
+name: Publish APT repo
+
+on:
+  push:
+    # run on any tag push, e.g. "v2.7.0"
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # need full history for tags
+
+      - name: Install dpkg-dev
+        run: sudo apt-get update && sudo apt-get install -y dpkg-dev
+
+      - name: Build .NET native library
+        run: |
+          dotnet publish NativeLibrary/MisbCoreNativeLibDotNet9.csproj \
+            -r linux-x64 -c Release \
+            /p:PublishAot=true /p:NativeLib=Shared /p:OutputName=libmisbcore
+
+      - name: Build .deb and APT repo
+        run: |
+          chmod +x build-deb.sh
+          ./build-deb.sh
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apt-repo
+          # this pushes to gh-pages branch by default
