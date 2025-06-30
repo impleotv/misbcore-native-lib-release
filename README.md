@@ -34,6 +34,15 @@ OS: Windows x64 / Linux (x64, arm64).
 
 *Released on Tue, 13 Aug, 10:09 GMT+3*
 
+## Install with the .deb file
+
+```
+wget -O /tmp/libmisbcore.deb https://github.com/impleotv/misbcore-native-lib-release/releases/download/v2.7.0/libmisbcore_2.7.0_amd64.deb  
+sudo dpkg -i /tmp/libmisbcore.deb  
+rm /tmp/libmisbcore.deb
+```
+
+
 ## License
 
 **MisbCoreNative Lib** is a node-locked software. In order to get the license, please install it and fill out an [online form](https://docs.google.com/forms/d/e/1FAIpQLSd_XW6bDsFce1G1cpds4gMQNlwNax0CvkWzcMbscxZ5rLaIbA/viewform), providing the ***Node Info*** string (IMPORTANT!!!) for the target machine.  
