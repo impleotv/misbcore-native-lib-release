@@ -95,6 +95,32 @@ jobs:
         dpkg-deb --build "$DEB_DIR"
         mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_ARM}.deb"
 
+
+      # ——— NODE.JS README GENERATION ———
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '14.x'
+
+    - name: Cache & install JS deps
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-js-${{ hashFiles('package-lock.json') }}
+
+    - name: Generate README
+      run: |
+        npm install
+        node index.js "${RELEASE_VERSION}"
+
+    - name: Commit updated docs
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: '.'
+        push: true
+        message: "Docs for ${RELEASE_VERSION}"
+
+  # ——— UPLOAD ALL RELEASE ASSETS ———
     - name: Upload Windows ZIP
       uses: svenstaro/upload-release-action@v2
       with:

@@ -123,3 +123,34 @@ activateFunc Activate = (activateFunc)funcAddr(handle, (char*)"Activate");
 bool fValid = Activate((char*)PathToLicenseFile, (char*)LicenseKey);
 ```
 > For large quantities, please contact us for an **unlocked license**.
+
+
+⚠️ ## Antivirus False Positives on AOT-Compiled Windows Libraries 
+
+Because our Windows libraries are built using Native AOT (Ahead‑of‑Time) compilation,
+some antivirus products may mistakenly detect them as malware (e.g. Trojan.Win64.XLoader, W64/Agent.KHK.gen, etc.).
+This is a known issue: numerous reports confirm that scanning AOT executables on Windows triggers heuristic-based false positives - 
+even though the exact same code compiled on Linux does not produce antivirus alerts.
+
+Why this happens  
+AOT compilation produces self-contained native binaries with embedded metadata and code patterns. 
+Antivirus engines on Windows often use heuristic signatures that can misidentify these patterns as malicious, even though they’re harmless 
+Native AOT on Linux uses different toolchains and binary formats, and such false positives are not observed there.
+
+Why you can trust our builds  
+All builds are performed entirely from source on a clean GitHub-hosted virtual machine.  
+At no point is malware ever introduced or presen — so any antivirus flagging must be a false positive caused by the compilation format.
+
+What this means for you  
+- There is no real virus in our Windows libraries — only a known issue with antivirus heuristics targeting AOT binaries.  
+- We’re continuously monitoring antivirus engine improvements, but there is nothing further we can do — the false positives stem from the AOT compilation itself.
+
+If desired, you may:
+- Use **.net** library on Windows, writing a wrapper for C/C++, if needed.
+- Ask for Customer-Side Compilation. It's theoretically possible to compile the Windows libraries locally (on sustomer's premises). However, this setup incurs additional costs and overhead.
+
+
+
+
+
+
