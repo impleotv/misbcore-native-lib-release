@@ -25,7 +25,7 @@ OS: Windows x64 / Linux (x64, arm64).
 | **libmisbcore win-x64**        |  v3.0.0 | [libmisbcore_v3.0.0_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_v3.0.0_win-x64.zip) | 
 | **libmisbcore C demo app**     |  v3.0.0 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-demo.zip)   | 
 
-*Released on Tue, 1 Jul, 19:18 GMT+3*
+*Released on Tue, 1 Jul, 19:41 GMT+3*
 
 
 ## Install with the .deb file (x64)
@@ -77,15 +77,11 @@ sudo dpkg -r libmisbcore
 **libmisbcore**  is a node-locked software. To obtain a license, install the library and complete the the [online form](https://docs.google.com/forms/d/e/1FAIpQLSd_XW6bDsFce1G1cpds4gMQNlwNax0CvkWzcMbscxZ5rLaIbA/viewform),
 including the Node Info string (this is required). 
 
-You can obtain the **Node Info** string in one of two ways:
-
-## By running the **misbcore-ni** app.
+You can obtain the **Node Info** string by running the **misbcore-ni** app.
 
 > Note: You must install the library before running the **misbcore-ni** application.  
 
-
 ## Download links
-
 |                                | Download link                                                           | 
 |:------------------------------:|:------------------------------------------------------------------------|
 | **misbcore-ni linux-x64**      |  [misbcore-ni](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/misbcore-ni_v3.0.0_linux-x64)   | 
@@ -93,62 +89,47 @@ You can obtain the **Node Info** string in one of two ways:
 | **misbcore-ni win-x64**        |  [misbcore-ni.eve](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/misbcore-ni_v3.0.0_win-x64.exe) | 
 
 
+Make the application executable, then run it: 
 
-## By calling **GetNodeInfo** method in the code.
-
-```cpp
-typedef char* (*getNodeInfoFunc)();
-
-getNodeInfoFunc GetNodeInfo = (getNodeInfoFunc)funcAddr(handle, (char*)"GetNodeInfo");
-char* nodeInfo = GetNodeInfo();
-printf("The NodeInfo: %s \n", nodeInfo);
 ```
-We'll send you back the **license** file and a **key**.  
-You can then activate the instance by calling **Activate** method:  
-
-```cpp
-#ifdef _WIN32
-    #define funcAddr GetProcAddress
-    HINSTANCE handle = LoadLibraryA((char*)PathToLibrary);
-#else
-    #define funcAddr dlsym
-    void* handle = dlopen((char*)PathToLibrary, RTLD_LAZY);
-#endif
-
-const char* PathToLicenseFile = "/home/user/Licenses/Impleo/MisbCoreNativeLicense.lic";
-const char* LicenseKey = "AF596BF0-BBAB142B-1B905B24-8DA51BED";
-typedef bool (*activateFunc)(char*, char*);
-
-activateFunc Activate = (activateFunc)funcAddr(handle, (char*)"Activate");
-bool fValid = Activate((char*)PathToLicenseFile, (char*)LicenseKey);
+sudo chmod +x misbcore-ni_v3.0.0_linux-x64  
+./misbcore-ni_v3.0.0_linux-x64
 ```
+
+<div align="center">
+  <a >
+    <img src="images/libmisbcore-qr.png" alt="qr" >
+  </a>
+</div>
+
+Please either copy and paste the Node Info string or send us a photo of the QR code.
+
 > For large quantities, please contact us for an **unlocked license**.
 
 
-⚠️ ## Antivirus False Positives on AOT-Compiled Windows Libraries 
+## ⚠️ Antivirus False Positives on AOT-Compiled Windows Libraries 
 
-Because our Windows libraries are built using Native AOT (Ahead‑of‑Time) compilation,
+Because the Windows library is built using Native AOT (Ahead‑of‑Time) compilation,
 some antivirus products may mistakenly detect them as malware (e.g. Trojan.Win64.XLoader, W64/Agent.KHK.gen, etc.).
-This is a known issue: numerous reports confirm that scanning AOT executables on Windows triggers heuristic-based false positives - 
-even though the exact same code compiled on Linux does not produce antivirus alerts.
+This is a known issue: numerous reports confirm that scanning AOT executables on Windows triggers heuristic-based false positives.
+Linux does not produce antivirus alerts.
 
-Why this happens  
+**Why this happens**  
 AOT compilation produces self-contained native binaries with embedded metadata and code patterns. 
 Antivirus engines on Windows often use heuristic signatures that can misidentify these patterns as malicious, even though they’re harmless 
 Native AOT on Linux uses different toolchains and binary formats, and such false positives are not observed there.
 
-Why you can trust our builds  
+**Why you can trust our builds**  
 All builds are performed entirely from source on a clean GitHub-hosted virtual machine.  
-At no point is malware ever introduced or presen — so any antivirus flagging must be a false positive caused by the compilation format.
+At no point is malware ever introduced or presen, so any antivirus flagging must be a false positive caused by the compilation format.
 
-What this means for you  
-- There is no real virus in our Windows libraries — only a known issue with antivirus heuristics targeting AOT binaries.  
+**What this means for you**  
+- There is no real virus in our Windows libraries, only a known issue with antivirus heuristics targeting AOT binaries.  
 - We’re continuously monitoring antivirus engine improvements, but there is nothing further we can do — the false positives stem from the AOT compilation itself.
 
 If desired, you may:
 - Use **.net** library on Windows, writing a wrapper for C/C++, if needed.
-- Ask for Customer-Side Compilation. It's theoretically possible to compile the Windows libraries locally (on sustomer's premises). However, this setup incurs additional costs and overhead.
-
+- Ask for Customer-Side Compilation. While it is theoretically possible to compile the Windows libraries locally on the customer's premises, this approach involves additional costs and operational overhead.
 
 
 
