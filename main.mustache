@@ -43,6 +43,23 @@ sudo dpkg -i /tmp/libmisbcore.deb
 rm /tmp/libmisbcore.deb
 ```
 
+Check with dpkg:  
+
+dpkg -l | grep libmisbcore
+
+You should see a line like:  
+```
+ii  libmisbcore  2.7.0 amd64 Native MISB 601 core processing library
+```
+
+Show detailed status of the package:  
+
+```
+dpkg -s libmisbcore
+```
+
+
+
 
 ## License
 
