@@ -1,0 +1,10 @@
+Package: libmisbcore
+Version: 3.0.0
+Section: libs
+Priority: optional
+Architecture: amd64
+Maintainer: ImpleoTV Systems Ltd <support@impleotv.com>
+Vendor: IMPELOTV SYSTEMS LTD
+License: Commercial
+Homepage: https://impleotv.com
+Description: Native MISB 601 core processing library
