@@ -11,15 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_VERSION: ${{ github.ref_name }}
+      PKG_NAME: libmisbcore
       ARCH_X64: amd64
       ARCH_ARM: arm64
 
     steps:
+      # Checkout
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           ref: master
 
+      # Download native shared libraries
       - name: Download native artifacts
         run: |
           wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
@@ -33,106 +36,71 @@ jobs:
           wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
             ftp://ftp.impleotv.com/misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
 
-      # ——— WINDOWS ZIP ———
-      - name: Zip file for windows-x64
+      # Prepare distribution folder
+      - name: Prepare dist directory
+        run: |
+          rm -rf dist
+          mkdir dist
+
+      # Windows ZIP
+      - name: Zip file for Windows x64
         uses: papeloto/action-zip@v1
         with:
           files: Windows-x64/libmisbcore.dll
-          dest: dist/libmisbcore_${{ env.RELEASE_VERSION }}_win-x64.zip
+          dest: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
 
-      # ——— DEBIAN PACKAGES ———
-      - name: Install FPM
+      # Build Debian package using dpkg-deb (amd64)
+      - name: Build .deb for amd64
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ruby ruby-dev build-essential
-          sudo gem install --no-document fpm
-
-      - name: Build .deb for AMD64
-        run: |
+          set -e
           VER="${RELEASE_VERSION#v}"
-          mkdir -p pkg/${ARCH_X64}/usr/lib/misbcore
-          cp Linux-x64/libmisbcore.so pkg/${ARCH_X64}/usr/lib/misbcore/libmisbcore.so
-          fpm -s dir -t deb \
-            -n libmisbcore \
-            -v "$VER" \
-            --architecture="${ARCH_X64}" \
-            --maintainer "ImpleoTV Systems Ltd <support@impleotv.com>" \
-            --vendor "ImpleoTV Systems Ltd" \
-            --license "Commercial" \
-            --url "https://impleotv.com" \
-            --description "Native MISB 601 core processing library" \
-            --category libs \
-            --prefix /usr/lib/misbcore \
-            pkg/${ARCH_X64}
-          mv libmisbcore_"$VER"_"${ARCH_X64}".deb dist/libmisbcore_${RELEASE_VERSION}_${ARCH_X64}.deb
+          DEB_DIR="${PKG_NAME}_${VER}_${ARCH_X64}"
+          mkdir -p "$DEB_DIR/usr/lib"
+          cp Linux-x64/libmisbcore.so "$DEB_DIR/usr/lib/"
+          mkdir -p "$DEB_DIR/DEBIAN"
+          cp control "$DEB_DIR/DEBIAN/control"
+          dpkg-deb --build "$DEB_DIR"
+          mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_X64}.deb"
 
-      - name: Build .deb for ARM64
+      # Build Debian package using dpkg-deb (arm64)
+      - name: Build .deb for arm64
         run: |
+          set -e
           VER="${RELEASE_VERSION#v}"
-          mkdir -p pkg/${ARCH_ARM}/usr/lib/misbcore
-          cp Linux-arm64/libmisbcore.so pkg/${ARCH_ARM}/usr/lib/misbcore/libmisbcore.so
-          fpm -s dir -t deb \
-            -n libmisbcore \
-            -v "$VER" \
-            --architecture="${ARCH_ARM}" \
-            --maintainer "ImpleoTV Systems Ltd <support@impleotv.com>" \
-            --vendor "ImpleoTV Systems Ltd" \
-            --license "Commercial" \
-            --url "https://impleotv.com" \
-            --description "Native MISB 601 core processing library" \
-            --category libs \
-            --prefix /usr/lib/misbcore \
-            pkg/${ARCH_ARM}
-          mv libmisbcore_"$VER"_"${ARCH_ARM}".deb dist/libmisbcore_${RELEASE_VERSION}_${ARCH_ARM}.deb
+          DEB_DIR="${PKG_NAME}_${VER}_${ARCH_ARM}"
+          mkdir -p "$DEB_DIR/usr/lib"
+          cp Linux-arm64/libmisbcore.so "$DEB_DIR/usr/lib/"
+          mkdir -p "$DEB_DIR/DEBIAN"
+          cp control "$DEB_DIR/DEBIAN/control"
+          dpkg-deb --build "$DEB_DIR"
+          mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_ARM}.deb"
 
-      # ——— NODE.JS README GENERATION ———
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '14.x'
-
-      - name: Cache & install JS deps
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-js-${{ hashFiles('package-lock.json') }}
-
-      - name: Generate README
-        run: |
-          npm install
-          node index.js "${RELEASE_VERSION}"
-
-      - name: Commit updated docs
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: '.'
-          push: true
-          message: "Docs for ${RELEASE_VERSION}"
-
-      # ——— UPLOAD ALL RELEASE ASSETS ———
+      # Upload Windows ZIP
       - name: Upload Windows ZIP
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/libmisbcore_${{ env.RELEASE_VERSION }}_win-x64.zip
-          asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_win-x64.zip
+          file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
+          asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
           tag: ${{ github.ref }}
           overwrite: true
 
-      - name: Upload AMD64 .deb
+      # Upload AMD64 .deb
+      - name: Upload amd64 .deb
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
-          asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
+          file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
+          asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
           tag: ${{ github.ref }}
           overwrite: true
 
-      - name: Upload ARM64 .deb
+      # Upload ARM64 .deb
+      - name: Upload arm64 .deb
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
-          asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
+          file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
+          asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
           tag: ${{ github.ref }}
           overwrite: true
