@@ -106,7 +106,7 @@ jobs:
           node-version: '14.x'
 
       - name: Cache & install JS deps
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-js-${{ hashFiles('package-lock.json') }}
