@@ -1,0 +1,17 @@
+Package: misbcore-native
+Version: 2.7.0
+Architecture: amd64
+Maintainer: <runner@pkrvmbietmlfzoi>
+Installed-Size: 17263
+Filename: repo/pool/main/m/misbcore-native/misbcore-native_2.7.0_amd64.deb
+Size: 7782880
+MD5sum: 1d7267e0698051f3f514297e88c85ab0
+SHA1: b065589bdd2dad095ef67e61b16e83e5261c456d
+SHA256: 426478bf4ecfc8fb90f449dc1f6c368aebb8cc15af6139207591be5b00e8d51a
+Section: default
+Priority: optional
+Homepage: http://example.com/no-uri-given
+Description: no description given
+License: unknown
+Vendor: none
+
