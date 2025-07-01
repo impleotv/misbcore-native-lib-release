@@ -8,5 +8,6 @@ Demo/
 .ftp-deploy-sync-state.json
 repo/
 dist/
-
+libmisbcore*
+Linux*
 
