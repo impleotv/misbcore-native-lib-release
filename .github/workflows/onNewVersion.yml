@@ -121,3 +121,30 @@ jobs:
         asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
         tag: ${{ github.ref }}
         overwrite: true
+
+    - name: Upload misbcore-ni (Linux x64)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Linux-x64/misbcore-ni
+        asset_name: misbcore-ni_${{ env.RELEASE_VERSION }}_linux-x64
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload misbcore-ni (Linux arm64)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Linux-arm64/misbcore-ni
+        asset_name: misbcore-ni_${{ env.RELEASE_VERSION }}_linux-arm64
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload misbcore-ni.exe (Windows)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Windows-x64/misbcore-ni.exe
+        asset_name: misbcore-ni_${{ env.RELEASE_VERSION }}_win-x64.exe
+        tag: ${{ github.ref }}
+        overwrite: true

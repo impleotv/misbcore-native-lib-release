@@ -74,8 +74,27 @@ sudo dpkg -r libmisbcore
 
 ## License
 
-**MisbCoreNative Lib** is a node-locked software. In order to get the license, please install it and fill out an [online form](https://docs.google.com/forms/d/e/1FAIpQLSd_XW6bDsFce1G1cpds4gMQNlwNax0CvkWzcMbscxZ5rLaIbA/viewform), providing the ***Node Info*** string (IMPORTANT!!!) for the target machine.  
-***Node Info*** string can be obtained by calling **GetNodeInfo** method, as shown below.
+**libmisbcore**  is a node-locked software. To obtain a license, install the library and complete the the [online form](https://docs.google.com/forms/d/e/1FAIpQLSd_XW6bDsFce1G1cpds4gMQNlwNax0CvkWzcMbscxZ5rLaIbA/viewform),
+including the Node Info string (this is required). 
+
+You can obtain the **Node Info** string in one of two ways:
+
+## By running the **misbcore-ni** app.
+
+> Note: You must install the library before running the **misbcore-ni** application.  
+
+
+## Download links
+
+|                                | Download link                                                           | 
+|:------------------------------:|:------------------------------------------------------------------------|
+| **misbcore-ni linux-x64**      |  [misbcore-ni](https://github.com/impleotv/misbcore-native-lib-release/releases/download/{{version}}/misbcore-ni_{{version}}_linux-x64)   | 
+| **misbcore-ni linux-arm64**    |  [misbcore-ni](https://github.com/impleotv/misbcore-native-lib-release/releases/download/{{version}}/misbcore-ni_{{version}}_linux-arm64)   | 
+| **misbcore-ni win-x64**        |  [misbcore-ni.eve](https://github.com/impleotv/misbcore-native-lib-release/releases/download/{{version}}/misbcore-ni_{{version}}_win-x64.exe) | 
+
+
+
+## By calling **GetNodeInfo** method in the code.
 
 ```cpp
 typedef char* (*getNodeInfoFunc)();
