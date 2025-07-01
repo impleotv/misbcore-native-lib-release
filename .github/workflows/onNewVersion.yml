@@ -16,91 +16,108 @@ jobs:
       ARCH_ARM: arm64
 
     steps:
-      # Checkout
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: master
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: master
 
-      # Download native shared libraries
-      - name: Download native artifacts
-        run: |
-          wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
-            ftp://ftp.impleotv.com/misbcoresdk/Native/Windows-x64/* -P Windows-x64
-          wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
-            ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-x64/* -P Linux-x64
-          wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
-            ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-arm64/* -P Linux-arm64
-          wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
-            ftp://ftp.impleotv.com/misbcoresdk/Native/Demo/* -P Demo
-          wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
-            ftp://ftp.impleotv.com/misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
+    - name: Download native artifacts
+      run: |
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Windows-x64/* -P Windows-x64
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-x64/* -P Linux-x64
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-arm64/* -P Linux-arm64
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Demo/* -P Demo
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
 
-      # Prepare distribution folder
-      - name: Prepare dist directory
-        run: |
-          rm -rf dist
-          mkdir dist
+    - name: Prepare dist directory
+      run: |
+        rm -rf dist
+        mkdir dist
 
-      # Windows ZIP
-      - name: Zip file for Windows x64
-        uses: papeloto/action-zip@v1
-        with:
-          files: Windows-x64/libmisbcore.dll
-          dest: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
+    - name: Zip file for Windows x64
+      uses: papeloto/action-zip@v1
+      with:
+        files: Windows-x64/libmisbcore.dll
+        dest: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
 
-      # Build Debian package using dpkg-deb (amd64)
-      - name: Build .deb for amd64
-        run: |
-          set -e
-          VER="${RELEASE_VERSION#v}"
-          DEB_DIR="${PKG_NAME}_${VER}_${ARCH_X64}"
-          mkdir -p "$DEB_DIR/usr/lib"
-          cp Linux-x64/libmisbcore.so "$DEB_DIR/usr/lib/"
-          mkdir -p "$DEB_DIR/DEBIAN"
-          cp control "$DEB_DIR/DEBIAN/control"
-          dpkg-deb --build "$DEB_DIR"
-          mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_X64}.deb"
+    - name: Build .deb for amd64
+      run: |
+        set -e
+        VER="${RELEASE_VERSION#v}"
+        DEB_DIR="${PKG_NAME}_${VER}_${ARCH_X64}"
 
-      # Build Debian package using dpkg-deb (arm64)
-      - name: Build .deb for arm64
-        run: |
-          set -e
-          VER="${RELEASE_VERSION#v}"
-          DEB_DIR="${PKG_NAME}_${VER}_${ARCH_ARM}"
-          mkdir -p "$DEB_DIR/usr/lib"
-          cp Linux-arm64/libmisbcore.so "$DEB_DIR/usr/lib/"
-          mkdir -p "$DEB_DIR/DEBIAN"
-          cp control "$DEB_DIR/DEBIAN/control"
-          dpkg-deb --build "$DEB_DIR"
-          mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_ARM}.deb"
+        mkdir -p "$DEB_DIR/usr/lib" "$DEB_DIR/DEBIAN"
+        cp Linux-x64/libmisbcore.so "$DEB_DIR/usr/lib/"
 
-      # Upload Windows ZIP
-      - name: Upload Windows ZIP
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
-          asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
-          tag: ${{ github.ref }}
-          overwrite: true
+        printf '%s\n' \
+          "Package: ${PKG_NAME}" \
+          "Version: ${VER}" \
+          "Section: libs" \
+          "Priority: optional" \
+          "Architecture: ${ARCH_X64}" \
+          "Maintainer: ImpleoTV Systems Ltd <support@impleotv.com>" \
+          "Vendor: IMPELOTV SYSTEMS LTD" \
+          "License: Commercial" \
+          "Homepage: https://impleotv.com" \
+          "Description: Native MISB 601 core processing library" \
+          > "$DEB_DIR/DEBIAN/control"
 
-      # Upload AMD64 .deb
-      - name: Upload amd64 .deb
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
-          asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
-          tag: ${{ github.ref }}
-          overwrite: true
+        dpkg-deb --build "$DEB_DIR"
+        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_X64}.deb"
 
-      # Upload ARM64 .deb
-      - name: Upload arm64 .deb
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
-          asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
-          tag: ${{ github.ref }}
-          overwrite: true
+    - name: Build .deb for arm64
+      run: |
+        set -e
+        VER="${RELEASE_VERSION#v}"
+        DEB_DIR="${PKG_NAME}_${VER}_${ARCH_ARM}"
+
+        mkdir -p "$DEB_DIR/usr/lib" "$DEB_DIR/DEBIAN"
+        cp Linux-arm64/libmisbcore.so "$DEB_DIR/usr/lib/"
+
+        printf '%s\n' \
+          "Package: ${PKG_NAME}" \
+          "Version: ${VER}" \
+          "Section: libs" \
+          "Priority: optional" \
+          "Architecture: ${ARCH_ARM}" \
+          "Maintainer: ImpleoTV Systems Ltd <support@impleotv.com>" \
+          "Vendor: IMPELOTV SYSTEMS LTD" \
+          "License: Commercial" \
+          "Homepage: https://impleotv.com" \
+          "Description: Native MISB 601 core processing library" \
+          > "$DEB_DIR/DEBIAN/control"
+
+        dpkg-deb --build "$DEB_DIR"
+        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_ARM}.deb"
+
+    - name: Upload Windows ZIP
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
+        asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload amd64 .deb
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
+        asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload arm64 .deb
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
+        asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
+        tag: ${{ github.ref }}
+        overwrite: true
