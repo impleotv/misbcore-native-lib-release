@@ -6,4 +6,7 @@ Demo/
 *.so
 *.dll
 .ftp-deploy-sync-state.json
+repo/
+dist/
+
 
