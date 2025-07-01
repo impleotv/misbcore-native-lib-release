@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
         uses: papeloto/action-zip@v1
         with:
           files: Windows-x64/libmisbcore.dll
-          dest: dist/libmisbcore-windows-x64.zip
+          dest: dist/libmisbcore_${{ env.RELEASE_VERSION }}_win-x64.zip
 
       # ——— DEBIAN PACKAGES ———
       - name: Install FPM
@@ -47,7 +47,7 @@ jobs:
           sudo apt-get install -y ruby ruby-dev build-essential
           sudo gem install --no-document fpm
 
-      - name: Build .deb for ${{ env.ARCH_X64 }}
+      - name: Build .deb for AMD64
         run: |
           VER="${RELEASE_VERSION#v}"
           mkdir -p pkg/${ARCH_X64}/usr/lib/misbcore
@@ -58,9 +58,9 @@ jobs:
             --architecture="${ARCH_X64}" \
             --prefix /usr/lib/misbcore \
             pkg/${ARCH_X64}
-          mv libmisbcore_"$VER"_"${ARCH_X64}".deb dist/
+          mv libmisbcore_"$VER"_"${ARCH_X64}".deb dist/libmisbcore_${RELEASE_VERSION}_${ARCH_X64}.deb
 
-      - name: Build .deb for ${{ env.ARCH_ARM }}
+      - name: Build .deb for ARM64
         run: |
           VER="${RELEASE_VERSION#v}"
           mkdir -p pkg/${ARCH_ARM}/usr/lib/misbcore
@@ -71,7 +71,7 @@ jobs:
             --architecture="${ARCH_ARM}" \
             --prefix /usr/lib/misbcore \
             pkg/${ARCH_ARM}
-          mv libmisbcore_"$VER"_"${ARCH_ARM}".deb dist/
+          mv libmisbcore_"$VER"_"${ARCH_ARM}".deb dist/libmisbcore_${RELEASE_VERSION}_${ARCH_ARM}.deb
 
       # ——— NODE.JS README GENERATION ———
       - name: Setup Node.js
@@ -102,7 +102,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/libmisbcore-windows-x64.zip
+          file: dist/libmisbcore_${{ env.RELEASE_VERSION }}_win-x64.zip
           asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_win-x64.zip
           tag: ${{ github.ref }}
           overwrite: true
@@ -111,18 +111,16 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/libmisbcore_*_${{ env.ARCH_X64 }}.deb
+          file: dist/libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
           asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
           tag: ${{ github.ref }}
           overwrite: true
-          file_glob: true
 
       - name: Upload ARM64 .deb
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/libmisbcore_*_${{ env.ARCH_ARM }}.deb
+          file: dist/libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
           asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
           tag: ${{ github.ref }}
           overwrite: true
-          file_glob: true
