@@ -59,7 +59,7 @@ jobs:
             --maintainer "ImpleoTV Systems Ltd <support@impleotv.com>" \
             --url "https://impleotv.com" \
             --description "Native MISB 601 core processing library" \
-            --deb-field "Section: libs" \
+            --category libs \
             --prefix /usr/lib/misbcore \
             pkg/${ARCH_X64}
           mv libmisbcore_"$VER"_"${ARCH_X64}".deb dist/libmisbcore_${RELEASE_VERSION}_${ARCH_X64}.deb
@@ -76,7 +76,7 @@ jobs:
             --maintainer "ImpleoTV Systems Ltd <support@impleotv.com>" \
             --url "https://impleotv.com" \
             --description "Native MISB 601 core processing library" \
-            --deb-field "Section: libs" \
+            --category libs \
             --prefix /usr/lib/misbcore \
             pkg/${ARCH_ARM}
           mv libmisbcore_"$VER"_"${ARCH_ARM}".deb dist/libmisbcore_${RELEASE_VERSION}_${ARCH_ARM}.deb
