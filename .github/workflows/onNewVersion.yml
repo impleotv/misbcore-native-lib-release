@@ -73,39 +73,6 @@ jobs:
             pkg/${ARCH_ARM}
           mv libmisbcore_"$VER"_"${ARCH_ARM}".deb dist/
 
-      # ——— APT REPO LAYOUT ———
-      - name: Create APT repo layout
-        run: |
-          VER="${RELEASE_VERSION#v}"
-          mkdir -p repo/{dists/stable/main/binary-${ARCH_X64},dists/stable/main/binary-${ARCH_ARM},pool/main/m/libmisbcore}
-          cp dist/libmisbcore_"$VER"_"${ARCH_X64}".deb repo/pool/main/m/libmisbcore/
-          cp dist/libmisbcore_"$VER"_"${ARCH_ARM}".deb repo/pool/main/m/libmisbcore/
-
-          dpkg-scanpackages repo/pool/main/m/libmisbcore /dev/null \
-            > repo/dists/stable/main/binary-${ARCH_X64}/Packages
-          gzip -c9 repo/dists/stable/main/binary-${ARCH_X64}/Packages \
-            > repo/dists/stable/main/binary-${ARCH_X64}/Packages.gz
-
-          dpkg-scanpackages repo/pool/main/m/libmisbcore /dev/null \
-            > repo/dists/stable/main/binary-${ARCH_ARM}/Packages
-          gzip -c9 repo/dists/stable/main/binary-${ARCH_ARM}/Packages \
-            > repo/dists/stable/main/binary-${ARCH_ARM}/Packages.gz
-
-          cat > repo/dists/stable/Release <<EOF
-          Origin: ImpleoTV
-          Label: ImpleoTV MISB Core Native
-          Suite: stable
-          Codename: stable
-          Architectures: ${ARCH_X64} ${ARCH_ARM}
-          Components: main
-          Description: ImpleoTV MISB Core Native library repo
-          EOF
-
-      - name: Package APT repo
-        run: |
-          VER="${RELEASE_VERSION#v}"
-          tar czf dist/libmisbcore-apt-${VER}.tar.gz -C repo .
-
       # ——— NODE.JS README GENERATION ———
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -136,26 +103,26 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/libmisbcore-windows-x64.zip
-          asset_name: libmisbcore-windows-x64.zip
+          asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_win-x64.zip
           tag: ${{ github.ref }}
           overwrite: true
 
-      - name: Upload .deb packages
+      - name: Upload AMD64 .deb
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/*.deb
-          asset_name: libmisbcore-deb
+          file: dist/libmisbcore_*_${{ env.ARCH_X64 }}.deb
+          asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
 
-      - name: Upload APT repo tarball
+      - name: Upload ARM64 .deb
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/libmisbcore-apt-*.tar.gz
-          asset_name: libmisbcore-apt-repo
+          file: dist/libmisbcore_*_${{ env.ARCH_ARM }}.deb
+          asset_name: libmisbcore_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
