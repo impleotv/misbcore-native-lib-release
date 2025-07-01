@@ -16,23 +16,16 @@ Samples [MisbCoreNative sample apps](https://www.impleotv.com/content/misbcore-n
 ## System Requirements
 OS: Windows x64 / Linux (x64, arm64).
 
-## Installation
-
-**MisbCoreNative Lib** can be downloaded as a **zip** file for the following operation systems:  
- - libmisbcore_v2.7.0_amd64.deb    - Linux x64
- - libmisbcore_v2.7.0_arm64.deb    - Linux arm64
- - libmisbcore_v2.7.0_win-x64.zip  - Windows
-
 ## Download links
 
 |          | Version             | Download link                                                           | 
 |:---------|:-------------------:|:------------------------------------------------------------------------|
-| **libmisbcore linux-x64**      |  v2.7.0 | [libmisbcore_-linux-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v2.7.0/libmisbcore_v2.7.0_amd64.deb)   | 
-| **libmisbcore linux-arm64**    |  v2.7.0 | [libmisbcore_-linux-arm64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v2.7.0/libmisbcore_v2.7.0_arm64.deb)   | 
+| **libmisbcore linux-x64**      |  v2.7.0 | [libmisbcore_v2.7.0_amd64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v2.7.0/libmisbcore_v2.7.0_amd64.deb)   | 
+| **libmisbcore linux-arm64**    |  v2.7.0 | [libmisbcore_v2.7.0_arm64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v2.7.0/libmisbcore_v2.7.0_arm64.deb)   | 
 | **libmisbcore win-x64**        |  v2.7.0 | [libmisbcore_v2.7.0_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v2.7.0/libmisbcore_v2.7.0_win-x64.zip) | 
 | **libmisbcore C demo app**     |  v2.7.0 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-demo.zip)   | 
 
-*Released on Tue, 1 Jul, 10:25 GMT+3*
+*Released on Tue, 1 Jul, 10:34 GMT+3*
 
 
 ## Install with the .deb file (x64)
