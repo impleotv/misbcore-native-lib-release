@@ -53,12 +53,12 @@ jobs:
           mkdir -p pkg/${ARCH_X64}/usr/lib/misbcore
           cp Linux-x64/libmisbcore.so pkg/${ARCH_X64}/usr/lib/misbcore/libmisbcore.so
           fpm -s dir -t deb \
-            -n misbcore-native \
+            -n libmisbcore \
             -v "$VER" \
             --architecture="${ARCH_X64}" \
             --prefix /usr/lib/misbcore \
             pkg/${ARCH_X64}
-          mv misbcore-native_"$VER"_"${ARCH_X64}".deb dist/
+          mv libmisbcore_"$VER"_"${ARCH_X64}".deb dist/
 
       - name: Build .deb for ${{ env.ARCH_ARM }}
         run: |
@@ -66,27 +66,27 @@ jobs:
           mkdir -p pkg/${ARCH_ARM}/usr/lib/misbcore
           cp Linux-arm64/libmisbcore.so pkg/${ARCH_ARM}/usr/lib/misbcore/libmisbcore.so
           fpm -s dir -t deb \
-            -n misbcore-native \
+            -n libmisbcore \
             -v "$VER" \
             --architecture="${ARCH_ARM}" \
             --prefix /usr/lib/misbcore \
             pkg/${ARCH_ARM}
-          mv misbcore-native_"$VER"_"${ARCH_ARM}".deb dist/
+          mv libmisbcore_"$VER"_"${ARCH_ARM}".deb dist/
 
       # ——— APT REPO LAYOUT ———
       - name: Create APT repo layout
         run: |
           VER="${RELEASE_VERSION#v}"
-          mkdir -p repo/{dists/stable/main/binary-${ARCH_X64},dists/stable/main/binary-${ARCH_ARM},pool/main/m/misbcore-native}
-          cp dist/misbcore-native_"$VER"_"${ARCH_X64}".deb repo/pool/main/m/misbcore-native/
-          cp dist/misbcore-native_"$VER"_"${ARCH_ARM}".deb repo/pool/main/m/misbcore-native/
+          mkdir -p repo/{dists/stable/main/binary-${ARCH_X64},dists/stable/main/binary-${ARCH_ARM},pool/main/m/libmisbcore}
+          cp dist/libmisbcore_"$VER"_"${ARCH_X64}".deb repo/pool/main/m/libmisbcore/
+          cp dist/libmisbcore_"$VER"_"${ARCH_ARM}".deb repo/pool/main/m/libmisbcore/
 
-          dpkg-scanpackages repo/pool/main/m/misbcore-native /dev/null \
+          dpkg-scanpackages repo/pool/main/m/libmisbcore /dev/null \
             > repo/dists/stable/main/binary-${ARCH_X64}/Packages
           gzip -c9 repo/dists/stable/main/binary-${ARCH_X64}/Packages \
             > repo/dists/stable/main/binary-${ARCH_X64}/Packages.gz
 
-          dpkg-scanpackages repo/pool/main/m/misbcore-native /dev/null \
+          dpkg-scanpackages repo/pool/main/m/libmisbcore /dev/null \
             > repo/dists/stable/main/binary-${ARCH_ARM}/Packages
           gzip -c9 repo/dists/stable/main/binary-${ARCH_ARM}/Packages \
             > repo/dists/stable/main/binary-${ARCH_ARM}/Packages.gz
@@ -104,7 +104,7 @@ jobs:
       - name: Package APT repo
         run: |
           VER="${RELEASE_VERSION#v}"
-          tar czf dist/misbcore-native-apt-${VER}.tar.gz -C repo .
+          tar czf dist/libmisbcore-apt-${VER}.tar.gz -C repo .
 
       # ——— NODE.JS README GENERATION ———
       - name: Setup Node.js
@@ -136,7 +136,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/libmisbcore-windows-x64.zip
-          asset_name: MisbCoreNative-windows-x64.zip
+          asset_name: libmisbcore-windows-x64.zip
           tag: ${{ github.ref }}
           overwrite: true
 
@@ -145,7 +145,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/*.deb
-          asset_name: misbcore-native-deb
+          asset_name: libmisbcore-deb
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
@@ -154,8 +154,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/misbcore-native-apt-*.tar.gz
-          asset_name: misbcore-native-apt-repo
+          file: dist/libmisbcore-apt-*.tar.gz
+          asset_name: libmisbcore-apt-repo
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
