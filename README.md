@@ -25,7 +25,7 @@ OS: Windows x64 / Linux (x64, arm64).
 | **libmisbcore win-x64**        |  v2.7.0 | [libmisbcore_v2.7.0_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v2.7.0/libmisbcore_v2.7.0_win-x64.zip) | 
 | **libmisbcore C demo app**     |  v2.7.0 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/MisbCoreNativeLib-demo.zip)   | 
 
-*Released on Tue, 1 Jul, 10:34 GMT+3*
+*Released on Tue, 1 Jul, 13:00 GMT+3*
 
 
 ## Install with the .deb file (x64)
@@ -43,6 +43,33 @@ sudo dpkg -i /tmp/libmisbcore.deb
 rm /tmp/libmisbcore.deb
 ```
 
+Check with dpkg:  
+
+dpkg -l | grep libmisbcore
+
+You should see a line like:  
+```
+ii  libmisbcore  2.7.0 amd64 Native MISB 601 core processing library
+```
+
+Show detailed status of the package:  
+
+```
+dpkg -s libmisbcore
+```
+
+
+To remove the library
+
+```
+sudo apt remove libmisbcore
+```
+
+or 
+
+```
+sudo dpkg -r libmisbcore
+```
 
 ## License
 
