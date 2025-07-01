@@ -37,8 +37,8 @@ jobs:
       - name: Zip file for windows-x64
         uses: papeloto/action-zip@v1
         with:
-          files: Windows-x64/MisbCoreNativeLib.dll
-          dest: dist/MisbCoreNativeLib-windows-x64.zip
+          files: Windows-x64/libmisbcore.dll
+          dest: dist/libmisbcore-windows-x64.zip
 
       # ——— DEBIAN PACKAGES ———
       - name: Install FPM
@@ -52,7 +52,7 @@ jobs:
           # strip leading "v" so deb version starts with a digit
           VER="${RELEASE_VERSION#v}"
           mkdir -p pkg/${ARCH_X64}/usr/lib/misbcore
-          cp Linux-x64/MisbCoreNativeLib.so pkg/${ARCH_X64}/usr/lib/misbcore/libmisbcore.so
+          cp Linux-x64/libmisbcore.so pkg/${ARCH_X64}/usr/lib/misbcore/libmisbcore.so
           fpm -s dir -t deb \
             -n misbcore-native \
             -v "$VER" \
@@ -65,7 +65,7 @@ jobs:
         run: |
           VER="${RELEASE_VERSION#v}"
           mkdir -p pkg/${ARCH_ARM}/usr/lib/misbcore
-          cp Linux-arm64/MisbCoreNativeLib.so pkg/${ARCH_ARM}/usr/lib/misbcore/libmisbcore.so
+          cp Linux-arm64/libmisbcore.so pkg/${ARCH_ARM}/usr/lib/misbcore/libmisbcore.so
           fpm -s dir -t deb \
             -n misbcore-native \
             -v "$VER" \
@@ -135,7 +135,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/MisbCoreNativeLib-windows-x64.zip
+          file: dist/libmisbcore-windows-x64.zip
           asset_name: MisbCoreNative-windows-x64.zip
           tag: ${{ github.ref }}
           overwrite: true
