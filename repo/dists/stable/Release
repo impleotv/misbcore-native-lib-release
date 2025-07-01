@@ -1,0 +1,7 @@
+Origin: ImpleoTV
+Label: ImpleoTV MISB Core Native
+Suite: stable
+Codename: stable
+Architectures: amd64 arm64
+Components: main
+Description: ImpleoTV MISB Core Native library repo
