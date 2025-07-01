@@ -49,7 +49,6 @@ jobs:
 
       - name: Build .deb for ${{ env.ARCH_X64 }}
         run: |
-          # strip leading "v" so deb version starts with a digit
           VER="${RELEASE_VERSION#v}"
           mkdir -p pkg/${ARCH_X64}/usr/lib/misbcore
           cp Linux-x64/libmisbcore.so pkg/${ARCH_X64}/usr/lib/misbcore/libmisbcore.so
@@ -104,6 +103,7 @@ jobs:
 
       - name: Package APT repo
         run: |
+          VER="${RELEASE_VERSION#v}"
           tar czf dist/misbcore-native-apt-${VER}.tar.gz -C repo .
 
       # ——— NODE.JS README GENERATION ———
@@ -154,7 +154,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/misbcore-native-apt-${VER}.tar.gz
+          file: dist/misbcore-native-apt-*.tar.gz
           asset_name: misbcore-native-apt-repo
           tag: ${{ github.ref }}
           overwrite: true
+          file_glob: true
