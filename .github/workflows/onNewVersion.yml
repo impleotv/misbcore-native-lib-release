@@ -57,6 +57,8 @@ jobs:
             -v "$VER" \
             --architecture="${ARCH_X64}" \
             --maintainer "ImpleoTV Systems Ltd <support@impleotv.com>" \
+            --vendor "ImpleoTV Systems Ltd" \
+            --license "Commercial" \
             --url "https://impleotv.com" \
             --description "Native MISB 601 core processing library" \
             --category libs \
@@ -74,6 +76,8 @@ jobs:
             -v "$VER" \
             --architecture="${ARCH_ARM}" \
             --maintainer "ImpleoTV Systems Ltd <support@impleotv.com>" \
+            --vendor "ImpleoTV Systems Ltd" \
+            --license "Commercial" \
             --url "https://impleotv.com" \
             --description "Native MISB 601 core processing library" \
             --category libs \
