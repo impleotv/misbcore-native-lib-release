@@ -10,8 +10,8 @@
 **libmisbcore** is a KLV/MISB metadata encoder and decoder, compiled as a self-contained native library (Native AOT form factor).
 It enables easy integration of the [MisbCore library](https://www.impleotv.com/content/misbcore/help/index.html) into cross-platform C/C++ applications. 
 
-More info on [MisbCoreNative Lib](https://www.impleotv.com/content/misbcore/help/user-guide/native-lib/).  
-Samples [MisbCoreNative sample apps](https://www.impleotv.com/content/misbcore-native-samples/help/).  
+More info on [libmisbcore](https://www.impleotv.com/content/misbcore/help/user-guide/native-lib.html).  
+Samples [libmisbcore sample apps](https://www.impleotv.com/content/misbcore-native-samples/help/).  
 
 ## System Requirements
 OS: Linux (x64, arm64) / Windows x64.
@@ -25,7 +25,7 @@ OS: Linux (x64, arm64) / Windows x64.
 | **libmisbcore win-x64**        |  v3.0.0 | [libmisbcore_v3.0.0_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_v3.0.0_win-x64.zip) | 
 | **libmisbcore C demo app**     |  v3.0.0 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/demoApp.zip)   | 
 
-*Released on Wed, 2 Jul, 10:37 GMT+3*
+*Released on Wed, 2 Jul, 11:45 GMT+3*
 
 
 ## Install with the .deb file (x64)
@@ -51,7 +51,7 @@ dpkg -l | grep libmisbcore
 
 You should see a line like:  
 
-*ii  libmisbcore  2.7.0 amd64 Native MISB 601 core processing library*
+*ii  libmisbcore  v3.0.0 amd64 Native MISB 601 core processing library*
 
 
 Show detailed status of the package:  
@@ -60,7 +60,7 @@ Show detailed status of the package:
 dpkg -s libmisbcore
 ```
 
-To remove the library
+To remove the library:
 
 ```
 sudo apt remove libmisbcore
@@ -124,8 +124,8 @@ Please either copy and paste the Node Info string or send us a photo of the QR c
 
 ## ⚠️ GLIBC Compatibility Notice for libmisbcore.so
 
-The libmisbcore.so library (also referred to as MisbCoreNativeLib) is compiled on Ubuntu 22.04, which includes GLIBC version 2.35 by default.
-As a result, the compiled binary may require GLIBC 2.29 or newer at runtime.
+The **libmisbcore.so** library is compiled on Ubuntu 22.04, which includes GLIBC version 2.35 by default.
+As a result, the compiled binary may require this GLIBC version or newer at runtime.
 
 ❗ Potential problem on Older Distributions
 If you attempt to run the library on older Debian-based systems (such as Debian 10 or Ubuntu 18.04),
@@ -135,8 +135,8 @@ which include GLIBC versions like 2.27 or earlier, you may encounter error that 
 
 Depending on your environment and constraints, you may choose one of the following approaches:  
 
-- Use an Older Version of libmisbcore.so  
-- Install a Newer GLIBC in a Custom Location
+- Use an older Version of libmisbcore.so  
+- Install a newer GLIBC in a Custom Location
 
 🧪 Verifying Your System’s GLIBC Version  
 
