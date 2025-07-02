@@ -25,7 +25,7 @@ OS: Linux (x64, arm64) / Windows x64.
 | **libmisbcore win-x64**        |  v3.0.0 | [libmisbcore_v3.0.0_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_v3.0.0_win-x64.zip) | 
 | **libmisbcore C demo app**     |  v3.0.0 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/demoApp.zip)   | 
 
-*Released on Wed, 2 Jul, 09:48 GMT+3*
+*Released on Wed, 2 Jul, 10:37 GMT+3*
 
 
 ## Install with the .deb file (x64)
@@ -71,6 +71,11 @@ or
 ```
 sudo dpkg -r libmisbcore
 ```
+
+## Windows  
+
+Copy **libmisbcore.dll** to your current directory or add its location to your system's PATH environment variable.
+
 
 ## License
 
