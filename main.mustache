@@ -51,7 +51,7 @@ dpkg -l | grep libmisbcore
 
 You should see a line like:  
 
-ii  libmisbcore  2.7.0 amd64 Native MISB 601 core processing library
+*ii  libmisbcore  2.7.0 amd64 Native MISB 601 core processing library*
 
 
 Show detailed status of the package:  
@@ -89,10 +89,19 @@ You can obtain the **Node Info** string by running the **misbcore-ni** app.
 | **misbcore-ni for win-x64**        |  [misbcore-ni-{{version}}_win-x64.exe](https://github.com/impleotv/misbcore-native-lib-release/releases/download/{{version}}/misbcore-ni_{{version}}_win-x64.exe) | 
 
 
-Make the application executable, then run it. Here is an example for linux x64: 
+Make the application executable, then run it.  
+For linux x64: 
 
 ```
 wget -O ./misbcore-ni https://github.com/impleotv/misbcore-native-lib-release/releases/download/{{version}}/misbcore-ni_{{version}}_linux-x64
+sudo chmod +x misbcore-ni
+./misbcore-ni
+```
+
+For linux arm64: 
+
+```
+wget -O ./misbcore-ni https://github.com/impleotv/misbcore-native-lib-release/releases/download/{{version}}/misbcore-ni_{{version}}_linux-arm64
 sudo chmod +x misbcore-ni
 ./misbcore-ni
 ```
@@ -106,6 +115,34 @@ sudo chmod +x misbcore-ni
 Please either copy and paste the Node Info string or send us a photo of the QR code.
 
 > For large quantities, please contact us for an **unlocked license**.
+
+
+## ⚠️ GLIBC Compatibility Notice for libmisbcore.so
+
+The libmisbcore.so library (also referred to as MisbCoreNativeLib) is compiled on Ubuntu 22.04, which includes GLIBC version 2.35 by default.
+As a result, the compiled binary may require GLIBC 2.29 or newer at runtime.
+
+❗ Potential problem on Older Distributions
+If you attempt to run the library on older Debian-based systems (such as Debian 10 or Ubuntu 18.04),
+which include GLIBC versions like 2.27 or earlier, you may encounter error that indicates a runtime incompatibility between the library and the system’s C library.
+
+✅ Recommended Solutions  
+
+Depending on your environment and constraints, you may choose one of the following approaches:  
+
+- Use an Older Version of libmisbcore.so  
+- Install a Newer GLIBC in a Custom Location
+
+🧪 Verifying Your System’s GLIBC Version  
+
+Run the following command to check your installed GLIBC version:  
+
+```
+ldd --version
+```
+
+Need a Compatible Build?  
+If none of the above options work for your use case, and your platform is restricted to older system libraries, contact us. We may be able to provide a custom build compiled against older toolchains, if justified.
 
 
 ## ⚠️ Antivirus False Positives on AOT-Compiled Windows Libraries 
