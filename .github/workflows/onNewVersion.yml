@@ -30,9 +30,9 @@ jobs:
         wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
           ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-arm64/* -P Linux-arm64
         wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
-          ftp://ftp.impleotv.com/misbcoresdk/Native/Demo/* -P Demo
+          ftp://ftp.impleotv.com/misbcoresdk/Native/DemoApp/* -P DemoApp
         wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
-          ftp://ftp.impleotv.com/misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-x64/CHANGELOG.md -O CHANGELOG.md
 
     - name: Prepare dist directory
       run: |
@@ -172,5 +172,23 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: Windows-x64/misbcore-ni.exe
         asset_name: misbcore-ni_${{ env.RELEASE_VERSION }}_win-x64.exe
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload CHANGELOG file
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Linux-x64/CHANGELOG.md
+        asset_name: CHANGELOG.md
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload misbcore-ni (Linux x64)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: DemoApp/demoApp.zip
+        asset_name: demoApp.zip
         tag: ${{ github.ref }}
         overwrite: true
