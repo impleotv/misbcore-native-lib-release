@@ -43,7 +43,7 @@ jobs:
       uses: papeloto/action-zip@v1
       with:
         files: Windows-x64/libmisbcore.dll
-        dest: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
+        dest: dist/${{ env.PKG_NAME }}_win-x64.zip
 
     - name: Build .deb for amd64
       run: |
@@ -68,7 +68,7 @@ jobs:
           > "$DEB_DIR/DEBIAN/control"
 
         dpkg-deb --build "$DEB_DIR"
-        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_X64}.deb"
+        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${ARCH_X64}.deb"
 
     - name: Build .deb for arm64
       run: |
@@ -93,7 +93,7 @@ jobs:
           > "$DEB_DIR/DEBIAN/control"
 
         dpkg-deb --build "$DEB_DIR"
-        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${RELEASE_VERSION}_${ARCH_ARM}.deb"
+        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${ARCH_ARM}.deb"
 
 
       # ——— NODE.JS README GENERATION ———
@@ -125,8 +125,8 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
-        asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_win-x64.zip
+        file: dist/${{ env.PKG_NAME }}_win-x64.zip
+        asset_name: ${{ env.PKG_NAME }}_win-x64.zip
         tag: ${{ github.ref }}
         overwrite: true
 
@@ -134,8 +134,8 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
-        asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_X64 }}.deb
+        file: dist/${{ env.PKG_NAME }}_${{ env.ARCH_X64 }}.deb
+        asset_name: ${{ env.PKG_NAME }}_${{ env.ARCH_X64 }}.deb
         tag: ${{ github.ref }}
         overwrite: true
 
@@ -143,8 +143,8 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: dist/${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
-        asset_name: ${{ env.PKG_NAME }}_${{ env.RELEASE_VERSION }}_${{ env.ARCH_ARM }}.deb
+        file: dist/${{ env.PKG_NAME }}_${{ env.ARCH_ARM }}.deb
+        asset_name: ${{ env.PKG_NAME }}_${{ env.ARCH_ARM }}.deb
         tag: ${{ github.ref }}
         overwrite: true
 
@@ -153,7 +153,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: Linux-x64/misbcore-ni
-        asset_name: misbcore-ni_${{ env.RELEASE_VERSION }}_linux-x64
+        asset_name: misbcore-ni_linux-x64
         tag: ${{ github.ref }}
         overwrite: true
 
@@ -162,7 +162,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: Linux-arm64/misbcore-ni
-        asset_name: misbcore-ni_${{ env.RELEASE_VERSION }}_linux-arm64
+        asset_name: misbcore-ni_linux-arm64
         tag: ${{ github.ref }}
         overwrite: true
 
@@ -171,7 +171,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: Windows-x64/misbcore-ni.exe
-        asset_name: misbcore-ni_${{ env.RELEASE_VERSION }}_win-x64.exe
+        asset_name: misbcore-ni_win-x64.exe
         tag: ${{ github.ref }}
         overwrite: true
 
