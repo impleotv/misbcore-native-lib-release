@@ -6,4 +6,10 @@ Demo/
 *.so
 *.dll
 .ftp-deploy-sync-state.json
+repo/
+dist/
+libmisbcore*
+Linux*
+Windows*
+Windows-x64/
 

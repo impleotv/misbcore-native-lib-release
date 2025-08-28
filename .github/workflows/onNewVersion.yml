@@ -4,97 +4,191 @@ on:
   push:
     tags:
       - 'v*'
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
-    
+    env:
+      RELEASE_VERSION: ${{ github.ref_name }}
+      PKG_NAME: libmisbcore
+      ARCH_X64: amd64
+      ARCH_ARM: arm64
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: master 
-          
-      - name: Download artifacts (from StCore build action - MisbCoreNativeLib.dll, MisbCoreNativeLib.so, stored on ftp) 
-        run: |
-           sudo wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Windows-x64/* -P ./Windows-x64                  
-           sudo wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-x64/* -P ./Linux-x64
-           sudo wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Linux-arm64/* -P ./Linux-arm64
-           sudo wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Demo/* -P ./Demo
-           wget --ftp-user=${{ secrets.FTP_USER }} --ftp-password=${{ secrets.FTP_PASSWORD }} ftp://ftp.impleotv.com//misbcoresdk/Native/Doc/CHANGELOG.md -O CHANGELOG.md
-           tree ${{ github.workspace }}
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: master
 
-      - name: Zip file for windows-x64
-        uses: papeloto/action-zip@v1
-        with:
-          files: /Windows-x64/MisbCoreNativeLib.dll
-          dest:  /dist/MisbCoreNativeLib-windows-x64.zip
+    - name: Download native artifacts
+      run: |
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Windows-x64/* -P Windows-x64
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-x64/* -P Linux-x64
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-arm64/* -P Linux-arm64
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/DemoApp/* -P DemoApp
+        wget --ftp-user="${{ secrets.FTP_USER }}" --ftp-password="${{ secrets.FTP_PASSWORD }}" \
+          ftp://ftp.impleotv.com/misbcoresdk/Native/Linux-x64/CHANGELOG.md -O CHANGELOG.md
 
-      - name: Zip file for linux-x64
-        uses: papeloto/action-zip@v1
-        with:
-          files: /Linux-x64/MisbCoreNativeLib.so
-          dest:  /dist/MisbCoreNativeLib-linux-x64.zip
-      
-      - name: Zip file for linux-arm64
-        uses: papeloto/action-zip@v1
-        with:
-          files: /Linux-arm64/MisbCoreNativeLib.so
-          dest:  /dist/MisbCoreNativeLib-linux-arm64.zip          
-         
-      - name: Zip file for Demo app
-        uses: papeloto/action-zip@v1
-        with:
-          files: /Demo/
-          dest: /dist/MisbCoreNativeLib-demo.zip
-  
-      - name: List files in the repository
-        run: |
-          tree ${{ github.workspace }}
+    - name: Prepare dist directory
+      run: |
+        rm -rf dist
+        mkdir dist
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/*.zip
-          asset_name: MisbCoreNative
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: "MisbCoreNative release"
-          file_glob: true
+    - name: Zip file for Windows x64
+      uses: papeloto/action-zip@v1
+      with:
+        files: Windows-x64/libmisbcore.dll
+        dest: dist/${{ env.PKG_NAME }}_win-x64.zip
 
-      - name: Setup NodeJs 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14.x'
-      - name: Cache dependencies and build outputs to improve workflow execution time.
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-js-${{ hashFiles('package-lock.json') }}
-      - name: Install dependencies
-        run: npm install
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Build .deb for amd64
+      run: |
+        set -e
+        VER="${RELEASE_VERSION#v}"
+        DEB_DIR="${PKG_NAME}_${VER}_${ARCH_X64}"
 
-      - name: Test
-        run: |
-          echo $RELEASE_VERSION
-          echo ${{ env.RELEASE_VERSION }} 
-          tree ${{ github.workspace }}      
-      - name: Generate README file
-        run: node index.js ${{env.RELEASE_VERSION }}
-        
-      - name: Commit and Push new README.md and CHANGELOG to the repository     
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: '.'
-          push: true
-          message: "Ver. ${{ env.RELEASE_VERSION }}"
-          
+        mkdir -p "$DEB_DIR/usr/lib" "$DEB_DIR/DEBIAN"
+        cp Linux-x64/libmisbcore.so "$DEB_DIR/usr/lib/"
+
+        printf '%s\n' \
+          "Package: ${PKG_NAME}" \
+          "Version: ${VER}" \
+          "Section: libs" \
+          "Priority: optional" \
+          "Architecture: ${ARCH_X64}" \
+          "Maintainer: ImpleoTV Systems Ltd <support@impleotv.com>" \
+          "Vendor: IMPELOTV SYSTEMS LTD" \
+          "License: Commercial" \
+          "Homepage: https://impleotv.com" \
+          "Description: Native MISB 601 core processing library" \
+          > "$DEB_DIR/DEBIAN/control"
+
+        dpkg-deb --build "$DEB_DIR"
+        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${ARCH_X64}.deb"
+
+    - name: Build .deb for arm64
+      run: |
+        set -e
+        VER="${RELEASE_VERSION#v}"
+        DEB_DIR="${PKG_NAME}_${VER}_${ARCH_ARM}"
+
+        mkdir -p "$DEB_DIR/usr/lib" "$DEB_DIR/DEBIAN"
+        cp Linux-arm64/libmisbcore.so "$DEB_DIR/usr/lib/"
+
+        printf '%s\n' \
+          "Package: ${PKG_NAME}" \
+          "Version: ${VER}" \
+          "Section: libs" \
+          "Priority: optional" \
+          "Architecture: ${ARCH_ARM}" \
+          "Maintainer: ImpleoTV Systems Ltd <support@impleotv.com>" \
+          "Vendor: IMPELOTV SYSTEMS LTD" \
+          "License: Commercial" \
+          "Homepage: https://impleotv.com" \
+          "Description: Native MISB 601 core processing library" \
+          > "$DEB_DIR/DEBIAN/control"
+
+        dpkg-deb --build "$DEB_DIR"
+        mv "${DEB_DIR}.deb" "dist/${PKG_NAME}_${ARCH_ARM}.deb"
 
 
+      # ——— NODE.JS README GENERATION ———
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '14.x'
+
+    - name: Cache & install JS deps
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-js-${{ hashFiles('package-lock.json') }}
+
+    - name: Generate README
+      run: |
+        npm install
+        node index.js "${RELEASE_VERSION}"
+
+    - name: Commit updated docs
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: '.'
+        push: true
+        message: "Docs for ${RELEASE_VERSION}"
+
+  # ——— UPLOAD ALL RELEASE ASSETS ———
+    - name: Upload Windows ZIP
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/${{ env.PKG_NAME }}_win-x64.zip
+        asset_name: ${{ env.PKG_NAME }}_win-x64.zip
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload amd64 .deb
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/${{ env.PKG_NAME }}_${{ env.ARCH_X64 }}.deb
+        asset_name: ${{ env.PKG_NAME }}_${{ env.ARCH_X64 }}.deb
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload arm64 .deb
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/${{ env.PKG_NAME }}_${{ env.ARCH_ARM }}.deb
+        asset_name: ${{ env.PKG_NAME }}_${{ env.ARCH_ARM }}.deb
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload misbcore-ni (Linux x64)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Linux-x64/misbcore-ni
+        asset_name: misbcore-ni_linux-x64
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload misbcore-ni (Linux arm64)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Linux-arm64/misbcore-ni
+        asset_name: misbcore-ni_linux-arm64
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload misbcore-ni.exe (Windows)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Windows-x64/misbcore-ni.exe
+        asset_name: misbcore-ni_win-x64.exe
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload CHANGELOG file
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Linux-x64/CHANGELOG.md
+        asset_name: CHANGELOG.md
+        tag: ${{ github.ref }}
+        overwrite: true
+
+    - name: Upload misbcore-ni (Linux x64)
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: DemoApp/demoApp.zip
+        asset_name: demoApp.zip
+        tag: ${{ github.ref }}
+        overwrite: true
