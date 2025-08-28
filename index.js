@@ -14,6 +14,7 @@ let DATA = {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
+    year: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
     timeZoneName: 'short',
