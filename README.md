@@ -23,6 +23,7 @@ OS: Linux (x64, arm64) / Windows x64.
 | **libmisbcore linux-x64**      |  v3.0.0 | [libmisbcore_amd64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_amd64.deb)   | 
 | **libmisbcore linux-arm64**    |  v3.0.0 | [libmisbcore_arm64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_arm64.deb)   | 
 | **libmisbcore win-x64**        |  v3.0.0 | [libmisbcore_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_win-x64.zip) | 
+| **libmisbcore win-x64**        |  v3.0.1 | [libmisbcore-v3.0.1_win-x64](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore-v3.0.1_win-x64.zip) | 
 | **libmisbcore C demo app**     |  v3.0.0 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/demoApp.zip)   | 
 
 *Released on Thu, 3 Jul, 10:20 GMT+3*
