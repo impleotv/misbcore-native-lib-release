@@ -20,26 +20,25 @@ OS: Linux (x64, arm64) / Windows x64.
 
 |   Library                      | Version      | Download link                                                           | 
 |:-------------------------------|:------------:|:------------------------------------------------------------------------|
-| **libmisbcore linux-x64**      |  v3.0.0 | [libmisbcore_amd64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_amd64.deb)   | 
-| **libmisbcore linux-arm64**    |  v3.0.0 | [libmisbcore_arm64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_arm64.deb)   | 
-| **libmisbcore win-x64**        |  v3.0.0 | [libmisbcore_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_win-x64.zip) | 
-| **libmisbcore win-x64**        |  v3.0.1 | [libmisbcore-v3.0.1_win-x64](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore-v3.0.1_win-x64.zip) | 
-| **libmisbcore C demo app**     |  v3.0.0 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/demoApp.zip)   | 
+| **libmisbcore linux-x64**      |  v3.0.1 | [libmisbcore_amd64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/libmisbcore_amd64.deb)   | 
+| **libmisbcore linux-arm64**    |  v3.0.1 | [libmisbcore_arm64.deb](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/libmisbcore_arm64.deb)   | 
+| **libmisbcore win-x64**        |  v3.0.1 | [libmisbcore_win-x64.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/libmisbcore_win-x64.zip) | 
+| **libmisbcore C demo app**     |  v3.0.1 | [libmisbcore_-demo.zip](https://github.com/impleotv/misbcore-native-lib-release/releases/latest/download/demoApp.zip)   | 
 
-*Released on Thu, 3 Jul, 10:20 GMT+3*
+*Released on Fri, 20 Feb 2026, 09:42 GMT+2*
 
 
 ## Install with the .deb file (x64)
 
 ```
-wget -O ./libmisbcore.deb https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_amd64.deb  
+wget -O ./libmisbcore.deb https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/libmisbcore_amd64.deb  
 sudo dpkg -i ./libmisbcore.deb  
 rm ./libmisbcore.deb
 ```
 ## Install with the .deb file (arm64)
 
 ```
-wget -O ./libmisbcore.deb https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/libmisbcore_arm64.deb 
+wget -O ./libmisbcore.deb https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/libmisbcore_arm64.deb 
 sudo dpkg -i ./libmisbcore.deb  
 rm ./libmisbcore.deb
 ```
@@ -52,7 +51,7 @@ dpkg -l | grep libmisbcore
 
 You should see a line like:  
 
-*ii  libmisbcore  v3.0.0 amd64 Native MISB 601 core processing library*
+*ii  libmisbcore  v3.0.1 amd64 Native MISB 601 core processing library*
 
 
 Show detailed status of the package:  
@@ -90,16 +89,16 @@ You can obtain the **Node Info** string by running the **misbcore-ni** app.
 ## Download links
 |   Application                      | Download link                                                           | 
 |:-----------------------------------|:------------------------------------------------------------------------|
-| **misbcore-ni for linux-x64**      |  [misbcore-ni_linux-x64](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/misbcore-ni_linux-x64)   | 
-| **misbcore-ni for linux-arm64**    |  [misbcore-ni_linux-arm64](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/misbcore-ni_linux-arm64)   | 
-| **misbcore-ni for win-x64**        |  [misbcore-ni-win-x64.exe](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/misbcore-ni_win-x64.exe) | 
+| **misbcore-ni for linux-x64**      |  [misbcore-ni_linux-x64](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/misbcore-ni_linux-x64)   | 
+| **misbcore-ni for linux-arm64**    |  [misbcore-ni_linux-arm64](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/misbcore-ni_linux-arm64)   | 
+| **misbcore-ni for win-x64**        |  [misbcore-ni-win-x64.exe](https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/misbcore-ni_win-x64.exe) | 
 
 
 Make the application executable, then run it.  
 For linux x64: 
 
 ```
-wget -O ./misbcore-ni https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/misbcore-ni_linux-x64
+wget -O ./misbcore-ni https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/misbcore-ni_linux-x64
 sudo chmod +x misbcore-ni
 ./misbcore-ni
 ```
@@ -107,7 +106,7 @@ sudo chmod +x misbcore-ni
 For linux arm64: 
 
 ```
-wget -O ./misbcore-ni https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.0/misbcore-ni_linux-arm64
+wget -O ./misbcore-ni https://github.com/impleotv/misbcore-native-lib-release/releases/download/v3.0.1/misbcore-ni_linux-arm64
 sudo chmod +x misbcore-ni
 ./misbcore-ni
 ```
