@@ -100,7 +100,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '14.x'
+        node-version: '16.x'
 
     - name: Cache & install JS deps
       uses: actions/cache@v4

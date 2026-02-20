@@ -1,8 +1,11 @@
 Change Log
 ==========
 
-### Ver. 3.0.0 (01/07/25)
+### Ver. 3.0.1 (20/02/26)
+- Compile with .Net10
 
+
+### Ver. 3.0.0 (01/07/25)
 - Rename to libmisbore
 - New nodeinfo hash
 
